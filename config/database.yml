@@ -1,0 +1,20 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: kinedu_dev
+  pool: 5
+  username:
+  password:
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: kinedu_test
+  pool: 5
+  username:
+  password:
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: kinedu_prod
+  username:
+  password:

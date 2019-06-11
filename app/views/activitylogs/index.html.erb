@@ -1,0 +1,46 @@
+<div class="container">
+  <%= @status %>
+  <h2>Activity Logs</h2>
+  <p>Administration page to show all the activities</p>
+  <%=  form_tag activity_logs_path, method: 'get' do %>
+    <%= collection_select :activity_log, :baby_id, Baby.all, :id, :name, prompt: true %>
+    <%= collection_select :activity_log, :assistant_id, Assistant.all, :id, :name, prompt: true   %>
+    <%= select_tag(:status, options_for_select([["En progreso", 0], ["Terminada", 1]]))  %>
+    <%= submit_tag 'look', class: 'btn btn-primary' %>
+  <% end %>
+  <%= params.inspect %>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Bebé</th>
+      <th>Asistente</th>
+      <th>Actividad</th>
+      <th>Inicio</th>
+      <th>Estatus</th>
+      <th>Duración</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% if @activity_logs.nil? %>
+    No hay resultados
+    <% else %>
+
+    <% @activity_logs.each do |activity| %>
+      <tr>
+        <td><%= activity.baby.name if activity.baby %></td>
+        <td><%= activity.assistant.name if activity.assistant %></td>
+        <td><%= activity.activity.name if activity.activity %></td>
+        <td><%= activity.start_time %></td>
+        <% if activity.duration.nil? %>
+         <td>En progreso</td>
+        <% else %>
+          <td>Terminada</td>
+        <% end %>
+        <td><%= activity.duration %> min </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+  </table>
+      <% end %>
+</div>
